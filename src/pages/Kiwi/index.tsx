@@ -1,14 +1,13 @@
 import { styled } from 'styled-components';
-import img1 from '@images/kiwi/kiwi1.png';
-import img2 from '@images/kiwi/kiwi2.png';
-import img3 from '@images/kiwi/kiwi3.png';
-import img4 from '@images/kiwi/kiwi4.png';
+import img1 from '@images/kiwi/diagnosis1.png';
+import img2 from '@images/kiwi/diagnosis2.png';
+
 import Carousel from 'react-material-ui-carousel';
 import { useNavigate } from 'react-router-dom';
 
 export default function Kiwi() {
     const navigate = useNavigate();
-    const imgList = [img1, img2, img3, img4];
+    const imgList = [img1, img2, img1, img2];
     return (
         <Container>
             <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>

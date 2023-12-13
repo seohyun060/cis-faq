@@ -1,13 +1,18 @@
-const MapSVG = () => {
+type Props = {
+    displayWidth: number;
+};
+
+const MapSVG = ({ displayWidth }: Props) => {
     return (
         <svg
             id="worldMap"
             version="1.1"
-            width={1080}
+            width={displayWidth}
             xmlns="http://www.w3.org/2000/svg"
             style={{
                 overflow: 'hidden',
                 position: 'relative',
+                zIndex: '0',
             }}
             viewBox="0 0 1400 599.1070366699703"
             preserveAspectRatio="xMidYMid meet"
