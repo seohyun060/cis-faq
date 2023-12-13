@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import MapSVG from './MapSVG';
+type Props = {
+    displayWidth: number;
+};
+
 interface CancerData {
     code: string;
     country: string;
     rate: string;
 }
-const Worldmap = () => {
+const Worldmap = ({ displayWidth }: Props) => {
     const [currentCountry, setCurrentCountry] = useState('');
     const currentRef = useRef(currentCountry);
     const [cancerDatas, setCancerDatas] = useState<CancerData[]>([]);
@@ -18,6 +22,7 @@ const Worldmap = () => {
             tooltip.style.border = '1px solid #ddd';
             tooltip.style.padding = '10px';
             tooltip.style.borderRadius = '10px';
+            tooltip.style.zIndex = '20';
             tooltip.style.fontFamily = 'Pretendard';
             tooltip.style.width = 'auto'; // width를 auto로 설정
             tooltip.style.opacity = '0'; // 초기 투명도를 0으로 설정
@@ -110,6 +115,7 @@ const Worldmap = () => {
         },
         [currentCountry, currentRef, cancerDatas]
     );
+
     useEffect(() => {
         currentRef.current = currentCountry;
     }, [currentCountry]);
@@ -139,11 +145,16 @@ const Worldmap = () => {
     }, [cancerDatas]);
 
     return (
-        <div className="map">
+        <div
+            className="map"
+            style={{
+                marginTop: '100px',
+            }}
+        >
             <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <MapSVG />
+            <MapSVG displayWidth={displayWidth} />
             <div id="overlay" />
         </div>
     );

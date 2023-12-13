@@ -1,34 +1,62 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import beamworksLogo from '@images/Logo.png';
-import alexandriaLogo from '@images/logos/alexandriaLogo.png';
-import kiwiLogo from '@images/logos/kiwiLogo.png';
-import cadaiLogo from '@images/logos/cadaiLogo.png';
+import globeG from '@images/home/globeG.svg';
+import globeB from '@images/home/globeB.svg';
+
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function Home() {
     const navigate = useNavigate();
+    const [globeToggle, setGlobeToggle] = useState(false);
+    const { t } = useTranslation(['page']);
+    const onGlobeClick = useCallback(() => {
+        setGlobeToggle((prev) => !prev);
+    }, [globeToggle]);
+
+    const onLangClick = useCallback((lang: string) => {
+        i18n.changeLanguage(lang);
+    }, []);
 
     return (
         <Container>
             <Button onClick={() => navigate('alexandria')}>
-                <Logo src={alexandriaLogo} />
-                <DescText>초음파 인공지능 교육 훈련 프로그램</DescText>
+                <DescText>{t('page:danger')}</DescText>
             </Button>
-            <Button onClick={() => navigate('map')}>
-                {/* <Logo src={alexandriaLogo} /> */}
-                <DescText>유방암 사망률 맵</DescText>
-            </Button>
+
             <Button onClick={() => navigate('kiwi')}>
-                <Logo src={kiwiLogo} />
-                <DescText>대화형 인공지능 의료 정보 챗봇</DescText>
+                <DescText>{t('page:ultrasound')}</DescText>
             </Button>
             <Button onClick={() => navigate('cadai')}>
-                <Logo src={cadaiLogo} />
-                <DescText>인공지능 기반 초음파 유방암 예측 모델</DescText>
+                <DescText>CadAI-B 의료진 교육</DescText>
             </Button>
-            <Button onClick={() => navigate('faq')}>
-                <TitleText>FAQ</TitleText>
-            </Button>
+            <Globe src={globeToggle ? globeG : globeB} onClick={onGlobeClick} />
+
+            <ButtonBox>
+                <LangButton
+                    onClick={() => {
+                        onLangClick('ko');
+                    }}
+                >
+                    한국어
+                </LangButton>
+                <LangButton
+                    onClick={() => {
+                        onLangClick('en');
+                    }}
+                >
+                    영어
+                </LangButton>
+                <LangButton
+                    onClick={() => {
+                        onLangClick('ru');
+                    }}
+                >
+                    러시아어
+                </LangButton>
+            </ButtonBox>
             <BeamworksLogo />
         </Container>
     );
@@ -51,14 +79,10 @@ const Container = styled.div`
     gap: 100px;
     background-color: #e8efef;
 `;
-
-const Logo = styled.img`
-    position: absolute;
-    top: 60px;
-    width: 500px;
-    height: 80px;
+const Globe = styled.img`
+    width: 66px;
+    height: 66px;
 `;
-
 const Button = styled.div`
     position: relative;
     align-items: center;
@@ -72,15 +96,35 @@ const Button = styled.div`
 `;
 
 const DescText = styled.div`
-    position: absolute;
+    position: relative;
     height: 90px;
-    bottom: 0;
-    font-size: 40px;
-    font-weight: 500;
+    width: 456px;
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
     color: #435256;
     align-items: center;
 `;
+const ButtonBox = styled.div`
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
+    gap: 10px;
+`;
+const LangButton = styled.div`
+    position: relative;
+    width: 150px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid black;
+`;
 const TitleText = styled.div`
     font-size: 70px;
     font-weight: 700;
