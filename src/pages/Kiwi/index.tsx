@@ -18,15 +18,19 @@ export default function Kiwi() {
         image.ultrasound2_ko,
     ]);
     useEffect(() => {
-        if (language === 'ko') {
-            setSlideList([image.ultrasound1_ko, image.ultrasound2_ko, image.ultrasound1_ko, image.ultrasound2_ko]);
-        } else if (language === 'en') {
-            setSlideList([image.ultrasound1_en, image.ultrasound2_en, image.ultrasound1_en, image.ultrasound2_en]);
-        } else {
-            setSlideList([image.ultrasound1_ru, image.ultrasound2_ru, image.ultrasound1_ru, image.ultrasound2_ru]);
-        }
+        setSlideList([image.ultrasound1_ko, image.ultrasound2_ko, image.ultrasound1_ko, image.ultrasound2_ko]);
         return () => {};
     }, [language]);
+    //   useEffect(() => {
+    //       if (language === 'ko') {
+    //           setSlideList([image.ultrasound1_ko, image.ultrasound2_ko, image.ultrasound1_ko, image.ultrasound2_ko]);
+    //       } else if (language === 'en') {
+    //           setSlideList([image.ultrasound1_en, image.ultrasound2_en, image.ultrasound1_en, image.ultrasound2_en]);
+    //       } else {
+    //           setSlideList([image.ultrasound1_ru, image.ultrasound2_ru, image.ultrasound1_ru, image.ultrasound2_ru]);
+    //       }
+    //       return () => {};
+    //   }, [language]);
     return (
         <Container>
             <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>

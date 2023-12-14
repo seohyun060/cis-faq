@@ -13,17 +13,20 @@ export default function Alexandria() {
     console.log(image);
     const [slideList, setSlideList] = useState([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
 
+    // useEffect(() => {
+    //     if (language === 'ko') {
+    //         setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+    //     } else if (language === 'en') {
+    //         setSlideList([image.danger1_en, <Map />, image.danger2_en, image.danger3_en]);
+    //     } else {
+    //         setSlideList([image.danger1_ru, <Map />, image.danger2_ru, image.danger3_ru]);
+    //     }
+    //     return () => {};
+    // }, [language]);
     useEffect(() => {
-        if (language === 'ko') {
-            setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
-        } else if (language === 'en') {
-            setSlideList([image.danger1_en, <Map />, image.danger2_en, image.danger3_en]);
-        } else {
-            setSlideList([image.danger1_ru, <Map />, image.danger2_ru, image.danger3_ru]);
-        }
+        setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
         return () => {};
     }, [language]);
-
     // const imgList = [image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko];
 
     const handleResize = useCallback(() => {

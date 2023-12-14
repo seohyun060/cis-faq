@@ -117,7 +117,7 @@ const Button = styled.div`
 const DescText = styled.div`
     position: relative;
     height: 90px;
-    width: 614px;
+    width: 675px;
     justify-content: center;
     text-align: center;
     font-size: 45px;
