@@ -1,19 +1,38 @@
 import { styled } from 'styled-components';
-import img1 from '@images/kiwi/diagnosis1.png';
-import img2 from '@images/kiwi/diagnosis2.png';
 
+import image from '@/assets/image';
+import useLangStore from '@/store/zustand/langZustand';
 import Carousel from 'react-material-ui-carousel';
+import { useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 export default function Kiwi() {
     const navigate = useNavigate();
-    const imgList = [img1, img2, img1, img2];
+    const { language } = useLangStore();
+
+    const [slideList, setSlideList] = useState<string[]>([
+        image.ultrasound1_ko,
+        image.ultrasound2_ko,
+        image.ultrasound1_ko,
+        image.ultrasound2_ko,
+    ]);
+    useEffect(() => {
+        if (language === 'ko') {
+            setSlideList([image.ultrasound1_ko, image.ultrasound2_ko, image.ultrasound1_ko, image.ultrasound2_ko]);
+        } else if (language === 'en') {
+            setSlideList([image.ultrasound1_en, image.ultrasound2_en, image.ultrasound1_en, image.ultrasound2_en]);
+        } else {
+            setSlideList([image.ultrasound1_ru, image.ultrasound2_ru, image.ultrasound1_ru, image.ultrasound2_ru]);
+        }
+        return () => {};
+    }, [language]);
     return (
         <Container>
             <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>
-                {imgList.map((item, index) => (
+                {slideList.map((slide, index) => (
                     <ImgWrapper key={index}>
-                        <Image src={item} />
+                        <Image src={slide} />
                     </ImgWrapper>
                 ))}
             </Carousel>

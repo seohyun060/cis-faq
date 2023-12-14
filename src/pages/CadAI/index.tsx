@@ -1,18 +1,37 @@
 import { styled } from 'styled-components';
-import img1 from '@images/cadai/cadai1.png';
-import img2 from '@images/cadai/cadai2.png';
+
+import image from '@/assets/image';
 import Carousel from 'react-material-ui-carousel';
 import { useNavigate } from 'react-router-dom';
+import useLangStore from '@/store/zustand/langZustand';
+import { useEffect, useState } from 'react';
 
 export default function CadAI() {
     const navigate = useNavigate();
-    const imgList = [img1, img2, img1, img2];
+    const { language } = useLangStore();
+    const [slideList, setSlideList] = useState<string[]>([
+        image.education1_ko,
+        image.education2_ko,
+        image.education1_ko,
+        image.education2_ko,
+    ]);
+    useEffect(() => {
+        if (language === 'ko') {
+            setSlideList([image.education1_ko, image.education2_ko, image.education1_ko, image.education2_ko]);
+        } else if (language === 'en') {
+            setSlideList([image.education1_en, image.education2_en, image.education1_en, image.education2_en]);
+        } else {
+            setSlideList([image.education1_ru, image.education2_ru, image.education1_ru, image.education2_ru]);
+        }
+        return () => {};
+    }, [language]);
+
     return (
         <Container>
             <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>
-                {imgList.map((item, index) => (
+                {slideList.map((slide, index) => (
                     <ImgWrapper key={index}>
-                        <Image src={item} />
+                        <Image src={slide} />
                     </ImgWrapper>
                 ))}
             </Carousel>

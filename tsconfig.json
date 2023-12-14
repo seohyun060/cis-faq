@@ -24,7 +24,8 @@
         "paths": {
             "@/*": ["src/*"],
             "@icons/*": ["src/assets/icons/*"],
-            "@images/*": ["src/assets/images/*"]
+            "@images/*": ["src/assets/images/*"],
+            "@store/*": ["src/store/*"]
         }
     },
     "include": ["src", "jest.config.ts", "**/*.ts", "**/*.tsx", "**/*.test.tsx"],

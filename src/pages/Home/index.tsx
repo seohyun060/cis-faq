@@ -4,21 +4,35 @@ import beamworksLogo from '@images/Logo.png';
 import globeG from '@images/home/globeG.svg';
 import globeB from '@images/home/globeB.svg';
 
+import useLangStore from '@/store/zustand/langZustand';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+interface ButtonBoxProps {
+    globeToggle: boolean;
+}
+
+interface ButtonLangProps {
+    currentLang: string;
+}
 export default function Home() {
     const navigate = useNavigate();
+    const { language, setLanguage } = useLangStore();
     const [globeToggle, setGlobeToggle] = useState(false);
     const { t } = useTranslation(['page']);
+    // const [currentLang, setCurrentLang] = useState('ko');
     const onGlobeClick = useCallback(() => {
         setGlobeToggle((prev) => !prev);
     }, [globeToggle]);
 
-    const onLangClick = useCallback((lang: string) => {
-        i18n.changeLanguage(lang);
-    }, []);
+    const onLangClick = useCallback(
+        (lang: string) => {
+            i18n.changeLanguage(lang);
+            setLanguage(lang);
+        },
+        [language]
+    );
 
     return (
         <Container>
@@ -30,32 +44,35 @@ export default function Home() {
                 <DescText>{t('page:ultrasound')}</DescText>
             </Button>
             <Button onClick={() => navigate('cadai')}>
-                <DescText>CadAI-B 의료진 교육</DescText>
+                <DescText>{t('page:education')}</DescText>
             </Button>
             <Globe src={globeToggle ? globeG : globeB} onClick={onGlobeClick} />
 
-            <ButtonBox>
-                <LangButton
+            <ButtonBox globeToggle={globeToggle}>
+                <ButtonKo
+                    currentLang={language}
                     onClick={() => {
                         onLangClick('ko');
                     }}
                 >
                     한국어
-                </LangButton>
-                <LangButton
+                </ButtonKo>
+                <ButtonEn
+                    currentLang={language}
                     onClick={() => {
                         onLangClick('en');
                     }}
                 >
                     영어
-                </LangButton>
-                <LangButton
+                </ButtonEn>
+                <ButtonRu
+                    currentLang={language}
                     onClick={() => {
                         onLangClick('ru');
                     }}
                 >
                     러시아어
-                </LangButton>
+                </ButtonRu>
             </ButtonBox>
             <BeamworksLogo />
         </Container>
@@ -82,6 +99,8 @@ const Container = styled.div`
 const Globe = styled.img`
     width: 66px;
     height: 66px;
+    margin-top: 20px;
+    margin-bottom: -30px;
 `;
 const Button = styled.div`
     position: relative;
@@ -92,41 +111,51 @@ const Button = styled.div`
     align-items: center;
     justify-content: center;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: 4px 8px 60px 0px rgba(0, 0, 0, 0.11);
 `;
 
 const DescText = styled.div`
     position: relative;
     height: 90px;
-    width: 456px;
+    width: 614px;
     justify-content: center;
     text-align: center;
-    font-size: 50px;
+    font-size: 45px;
     font-weight: 700;
     color: #435256;
     align-items: center;
 `;
-const ButtonBox = styled.div`
+const ButtonBox = styled.div<ButtonBoxProps>`
     position: relative;
     width: fit-content;
     height: fit-content;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    gap: 10px;
+    opacity: ${(props) => (props.globeToggle ? 1 : 0)};
+    gap: 70px;
 `;
-const LangButton = styled.div`
+const ButtonKo = styled.div<ButtonLangProps>`
     position: relative;
-    width: 150px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    color: #000;
     text-align: center;
-    border: 1px solid black;
+    font-family: Pretendard;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 80% */
+    opacity: ${(props) => (props.currentLang === 'ko' ? 1 : 0.4)};
 `;
-const TitleText = styled.div`
-    font-size: 70px;
-    font-weight: 700;
-    color: #435256;
+const ButtonEn = styled(ButtonKo)`
+    opacity: ${(props) => (props.currentLang === 'en' ? 1 : 0.4)};
 `;
+const ButtonRu = styled(ButtonKo)`
+    opacity: ${(props) => (props.currentLang === 'ru' ? 1 : 0.4)};
+`;
+// const TitleText = styled.div`
+//     font-size: 70px;
+//     font-weight: 700;
+//     color: #435256;
+// `;

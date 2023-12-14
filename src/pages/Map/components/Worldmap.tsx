@@ -12,6 +12,7 @@ interface CancerData {
 const Worldmap = ({ displayWidth }: Props) => {
     const [currentCountry, setCurrentCountry] = useState('');
     const currentRef = useRef(currentCountry);
+
     const [cancerDatas, setCancerDatas] = useState<CancerData[]>([]);
     const createTooltip = useCallback(
         (e: MouseEvent, text: string): HTMLDivElement => {
@@ -30,7 +31,6 @@ const Worldmap = ({ displayWidth }: Props) => {
             tooltip.style.textAlign = 'center'; // 텍스트 중앙 정렬 추가
             tooltip.innerHTML = text.replace('/', '<br>'); // 텍스트를 두 줄로 나누기 위해 <br> 태그로 변경
             tooltip.style.transition = 'all 0.3s ease-out'; // 트랜지션 효과 추가
-            //tooltip.innerHTML = text;
             document.body.appendChild(tooltip);
             tooltip.style.left = `${e.pageX - tooltip.offsetWidth / 2}px`;
             tooltip.style.top = `${e.pageY - tooltip.offsetHeight}px`;
@@ -99,12 +99,14 @@ const Worldmap = ({ displayWidth }: Props) => {
                 clickedData !== undefined
                     ? fillColor(target, parseFloat(clickedData.rate), true)
                     : (target.style.fill = '#7d7d7d');
-                const tooltip =
+                const newTooltip =
                     clickedData !== undefined
                         ? createTooltip(e, `${clickedData.country}/Death rate: ${clickedData.rate}`)
                         : createTooltip(e, `No data`);
+
                 setCurrentCountry(clickedCountryCode);
-                removeTooltip(tooltip, 3000);
+
+                removeTooltip(newTooltip, 3000);
                 setTimeout(() => {
                     setCurrentCountry('');
                     clickedData !== undefined
@@ -148,7 +150,7 @@ const Worldmap = ({ displayWidth }: Props) => {
         <div
             className="map"
             style={{
-                marginTop: '100px',
+                overflow: 'hidden',
             }}
         >
             <meta charSet="UTF-8" />
