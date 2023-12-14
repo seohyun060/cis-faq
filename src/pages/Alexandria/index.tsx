@@ -1,18 +1,31 @@
 import { styled } from 'styled-components';
-import img1 from '@images/alexandria/danger1.png';
-import img2 from '@images/alexandria/danger2.png';
-import img3 from '@images/alexandria/danger3.png';
 import image from '@/assets/image';
 import Carousel from 'react-material-ui-carousel';
+import useLangStore from '@/store/zustand/langZustand';
 import { useNavigate } from 'react-router-dom';
 import Map from '../Map';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function Alexandria() {
     const navigate = useNavigate();
+    const { language } = useLangStore();
     const [horizontal, setHorizontal] = useState(false);
     console.log(image);
-    const imgList = [img1, <Map />, img2, img3];
+    const [slideList, setSlideList] = useState([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+
+    useEffect(() => {
+        if (language === 'ko') {
+            setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+        } else if (language === 'en') {
+            setSlideList([image.danger1_en, <Map />, image.danger2_en, image.danger3_en]);
+        } else {
+            setSlideList([image.danger1_ru, <Map />, image.danger2_ru, image.danger3_ru]);
+        }
+        return () => {};
+    }, [language]);
+
+    // const imgList = [image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko];
+
     const handleResize = useCallback(() => {
         if (window.innerWidth > window.innerHeight) {
             setHorizontal(true);
@@ -27,24 +40,26 @@ export default function Alexandria() {
     }, [window.innerWidth]);
     return (
         <Container>
-            {/* <Map /> */}
-            {/* {!horizontal ? ( */}
-            <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>
-                {imgList.map((item, index) => {
-                    if (typeof item === 'string') {
+            <Carousel
+                height={horizontal ? '1080px' : '1920px'}
+                autoPlay={false}
+                animation="slide"
+                indicators={false}
+                navButtonsAlwaysInvisible
+                swipe={horizontal ? false : true}
+            >
+                {slideList.map((slide, index) => {
+                    if (typeof slide === 'string') {
                         return (
                             <ImgWrapper key={index}>
-                                <Image src={item} />
+                                <Image src={slide} />
                             </ImgWrapper>
                         );
                     } else {
-                        return <div key={index}>{item}</div>;
+                        return <div key={index}>{slide}</div>;
                     }
                 })}
             </Carousel>
-            {/* ) : (
-                <></>
-            )} */}
 
             <BackButton onClick={() => navigate('/')} />
         </Container>
@@ -66,7 +81,6 @@ const ImgWrapper = styled.div`
 const BackButton = styled.div`
     width: 100px;
     height: 100px;
-    background-color: #000000;
     position: fixed;
     left: 0;
     top: 0;

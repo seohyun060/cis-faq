@@ -17,25 +17,6 @@ const MapSVG = ({ displayWidth }: Props) => {
             viewBox="0 0 1400 599.1070366699703"
             preserveAspectRatio="xMidYMid meet"
         >
-            {/*원래 xMinYMin 이였음*/}
-            {/* <rect
-				x='-4035.01'
-				y='-1726.15'
-				width={10090}
-				height='4317.85'
-				r={0}
-				rx={0}
-				ry={0}
-				fill='#ffffff'
-				stroke='none'
-				transform='matrix(0.6938,0,0,0.6938,0,0)'
-				strokeWidth='1.4414285714285715'
-				style={{
-					WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-					fillOpacity: 0,
-				}}
-				fillOpacity={0}
-			/> */}
             <path
                 fill="#88a4bc"
                 stroke="#ffffff"
