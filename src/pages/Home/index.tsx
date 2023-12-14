@@ -63,7 +63,7 @@ export default function Home() {
                         onLangClick('en');
                     }}
                 >
-                    영어
+                    English
                 </ButtonEn>
                 <ButtonRu
                     currentLang={language}
@@ -71,7 +71,7 @@ export default function Home() {
                         onLangClick('ru');
                     }}
                 >
-                    러시아어
+                    ру́сский язы́к
                 </ButtonRu>
             </ButtonBox>
             <BeamworksLogo />
