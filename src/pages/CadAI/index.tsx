@@ -15,21 +15,21 @@ export default function CadAI() {
         image.education1_ko,
         image.education2_ko,
     ]);
-    useEffect(() => {
-        setSlideList([image.education1_ko, image.education2_ko, image.education1_ko, image.education2_ko]);
+    // useEffect(() => {
+    //     setSlideList([image.education1_ko, image.education2_ko, image.education1_ko, image.education2_ko]);
 
+    //     return () => {};
+    // }, [language]);
+    useEffect(() => {
+        if (language === 'ko') {
+            setSlideList([image.education1_ko, image.education2_ko, image.education1_ko, image.education2_ko]);
+        } else if (language === 'en') {
+            setSlideList([image.education1_en, image.education2_en, image.education1_en, image.education2_en]);
+        } else {
+            setSlideList([image.education1_ru, image.education2_ru, image.education1_ru, image.education2_ru]);
+        }
         return () => {};
     }, [language]);
-    //  useEffect(() => {
-    //      if (language === 'ko') {
-    //          setSlideList([image.education1_ko, image.education2_ko, image.education1_ko, image.education2_ko]);
-    //      } else if (language === 'en') {
-    //          setSlideList([image.education1_en, image.education2_en, image.education1_en, image.education2_en]);
-    //      } else {
-    //          setSlideList([image.education1_ru, image.education2_ru, image.education1_ru, image.education2_ru]);
-    //      }
-    //      return () => {};
-    //  }, [language]);
     return (
         <Container>
             <Carousel height={'1920px'} autoPlay={false} animation="slide" indicators={false} navButtonsAlwaysInvisible>

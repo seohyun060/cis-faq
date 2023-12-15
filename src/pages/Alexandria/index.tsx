@@ -11,22 +11,22 @@ export default function Alexandria() {
     const { language } = useLangStore();
     const [horizontal, setHorizontal] = useState(false);
     console.log(image);
-    const [slideList, setSlideList] = useState([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+    const [slideList, setSlideList] = useState([image.danger1_ko, <Map />, image.danger2_ko]);
 
-    // useEffect(() => {
-    //     if (language === 'ko') {
-    //         setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
-    //     } else if (language === 'en') {
-    //         setSlideList([image.danger1_en, <Map />, image.danger2_en, image.danger3_en]);
-    //     } else {
-    //         setSlideList([image.danger1_ru, <Map />, image.danger2_ru, image.danger3_ru]);
-    //     }
-    //     return () => {};
-    // }, [language]);
     useEffect(() => {
-        setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+        if (language === 'ko') {
+            setSlideList([image.danger1_ko, <Map />, image.danger2_ko]);
+        } else if (language === 'en') {
+            setSlideList([image.danger1_en, <Map />, image.danger2_en]);
+        } else {
+            setSlideList([image.danger1_ru, <Map />, image.danger2_ru]);
+        }
         return () => {};
     }, [language]);
+    // useEffect(() => {
+    //     setSlideList([image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko]);
+    //     return () => {};
+    // }, [language]);
     // const imgList = [image.danger1_ko, <Map />, image.danger2_ko, image.danger3_ko];
 
     const handleResize = useCallback(() => {
@@ -73,7 +73,8 @@ const Container = styled.div`
     position: relative;
     flex-direction: column;
     width: 100%;
-    height: fit-content;
+    height: 100vh;
+    overflow: hidden;
 `;
 
 const ImgWrapper = styled.div`

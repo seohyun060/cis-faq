@@ -22,6 +22,7 @@ const image = {
     ultrasound2_en: '/assets/images/ultrasound2_en.png',
     ultrasound1_ru: '/assets/images/ultrasound1_ru.png',
     ultrasound2_ru: '/assets/images/ultrasound2_ru.png',
+    logo: '/assets/images/logo.svg',
 };
 
 export default image;
